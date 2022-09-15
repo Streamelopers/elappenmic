@@ -42,6 +42,7 @@ dependencies:
   rxdart: ^0.27.5
   provider: ^6.0.3
   font_awesome_flutter: ^10.2.1
+  webview_flutter: ^3.0.4
 
 dev_dependencies:
   flutter_test:
