@@ -110,8 +110,9 @@ class _AudioScreenState extends State<AudioScreen> with WidgetsBindingObserver {
                     size: 20,
                   ),
                   label: Text("Llamar a cabina"),
-                  onPressed: () {
-                    _makePhoneCall("tel:+18095682222");
+                  onPressed: () async {
+                    await _makePhoneCall("tel:+18095682222");
+                    await _player.pause();
                   }),
             ],
           )
