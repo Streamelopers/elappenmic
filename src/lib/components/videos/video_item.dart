@@ -26,29 +26,10 @@ class VideoItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Flexible(
-                    flex: 3,
-                    child: SizedBox(
-                      child: Image.network(
-                        video.thumbnail_3x,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
+                  Image.network(
+                    video.thumbnail_2x,
+                    fit: BoxFit.contain,
                   ),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Text(
-                        video.title,
-                        style: const TextStyle(
-                          height: 1.5,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        overflow: TextOverflow.fade,
-                        softWrap: false,
-                      ),
-                    ),
-                  )
                 ],
               ),
             )));

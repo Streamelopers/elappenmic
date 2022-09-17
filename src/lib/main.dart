@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:src/components/home/home_screen.dart';
+import 'package:src/components/videos/videos_list_screen.dart';
 import 'services/firestore.dart';
 import 'routes.dart';
 import 'services/models.dart';
@@ -31,8 +33,8 @@ class _AppState extends State<App> {
             return FutureProvider(
                 create: (_) => FirestoreService().getYoutubeVideos(),
                 initialData: YoutubeVideo(),
-                child: MaterialApp(
-                  routes: appRoutes,
+                child: const MaterialApp(
+                  home: HomeScreen(),
                   //  theme: appTheme,
                 ));
           }
