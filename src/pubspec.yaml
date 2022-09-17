@@ -44,6 +44,7 @@ dependencies:
   font_awesome_flutter: ^10.2.1
   webview_flutter: ^3.0.4
   just_audio: ^0.9.29
+  flutter_local_notifications: ^10.0.0
 
 dev_dependencies:
   flutter_test:

@@ -38,7 +38,9 @@ class _AppState extends State<App> {
                   //  theme: appTheme,
                 ));
           }
-          return Scaffold(body: Text('loading'));
+          return const Scaffold(
+              body: Directionality(
+                  textDirection: TextDirection.ltr, child: Text('loading')));
         });
   }
 }
