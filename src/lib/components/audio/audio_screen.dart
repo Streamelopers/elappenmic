@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:audio_session/audio_session.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AudioScreen extends StatefulWidget {
   const AudioScreen({Key? key}) : super(key: key);
@@ -20,18 +22,13 @@ class _AudioScreenState extends State<AudioScreen> with WidgetsBindingObserver {
   }
 
   Future<void> _init() async {
-    // Inform the operating system of our app's audio attributes etc.
-    // We pick a reasonable default for an app that plays speech.
     final session = await AudioSession.instance;
     await session.configure(const AudioSessionConfiguration.speech());
-    // Listen to errors during playback.
     _player.playbackEventStream.listen((event) {},
         onError: (Object e, StackTrace stackTrace) {
       print('A stream error occurred: $e');
     });
-    // Try to load audio from a source and catch any errors.
     try {
-      // AAC example: https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac
       await _player.setAudioSource(
           AudioSource.uri(Uri.parse("https://radio5.domint.net:8222/stream")));
     } catch (e) {
@@ -48,17 +45,12 @@ class _AudioScreenState extends State<AudioScreen> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused) {
-      // Release the player's resources when not in use. We use "stop" so that
-      // if the app resumes later, it will still remember what position to
-      // resume from.
       _player.stop();
     }
   }
 
   Widget _playerButton(PlayerState? playerState) {
     // 1
-    print('im here');
-    print(playerState);
     final processingState = playerState?.processingState;
     final playing = playerState?.playing;
     if (processingState == ProcessingState.loading ||
@@ -87,17 +79,40 @@ class _AudioScreenState extends State<AudioScreen> with WidgetsBindingObserver {
     }
   }
 
+  Future<void> _makePhoneCall(String url) async {
+    if (!await launchUrl(Uri.parse(url),
+        mode: LaunchMode.externalNonBrowserApplication)) {
+      //   throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: StreamBuilder<PlayerState>(
-          stream: _player.playerStateStream,
-          builder: (context, snapshot) {
-            final playerState = snapshot.data;
-            return _playerButton(playerState);
-          },
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Center(
+            child: StreamBuilder<PlayerState>(
+              stream: _player.playerStateStream,
+              builder: (context, snapshot) {
+                final playerState = snapshot.data;
+                return _playerButton(playerState);
+              },
+            ),
+          ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: OutlinedButton.icon(
+                  icon: const Icon(
+                    FontAwesomeIcons.phone,
+                    size: 20,
+                  ),
+                  label: Text("Llamar a cabina"),
+                  onPressed: () {
+                    _makePhoneCall("tel:+18095682222");
+                  }))
+        ],
       ),
     );
   }
