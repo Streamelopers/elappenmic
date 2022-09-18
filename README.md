@@ -11,9 +11,17 @@ Aplicación hecha en Flutter para demostrar conceptos básicos.
 - [x] Poder ver los videos individuales
 - [ ] Cache de request o refactoring de como se piden los ep de youtube
 - [ ] Hacer la pantalla de "Acerca de" con informaciones generales
+- [ ] Seguir tocando la radio aunque navegue a otras pantallas
 - [ ] Mostrar listado de futuras funciones
 - [x] Hacer mute de la estación cuando se haga una llamada
 - [ ] Mostar adunit en la parte inferior
 - [ ] Agregar analytics??
 - [ ] Agregar crash reports??
 - [ ] CI/CD ??
+
+
+
+authors:
+22,21,111,164,205,231,287,369,1545,2134
+
+https://tix.do/wp-json/wp/v2/el_bookings?author=22,21,111,164,205,231,287,369,1545,2134&per_page=24&context=embed&order=desc&orderby=date

@@ -9,7 +9,7 @@ var appScreens = {
   {
     "screen": const AudioScreen(),
     "icon": const Icon(
-      FontAwesomeIcons.fileAudio,
+      FontAwesomeIcons.radio,
       size: 20,
     ),
     "title": "Radio"
@@ -21,6 +21,14 @@ var appScreens = {
       size: 20,
     ),
     "title": "Videos"
+  },
+  {
+    "screen": const ShowsScreen(),
+    "icon": const Icon(
+      FontAwesomeIcons.masksTheater,
+      size: 20,
+    ),
+    "title": "Shows"
   },
   {
     "screen": const AboutScreen(),
