@@ -15,6 +15,7 @@ Aplicación hecha en Flutter para demostrar conceptos básicos.
 - [ ] Mostrar listado de futuras funciones
 - [x] Hacer mute de la estación cuando se haga una llamada
 - [ ] Mostar adunit en la parte inferior
+- [ ] Hacer tema dark
 - [ ] Agregar analytics??
 - [ ] Agregar crash reports??
 - [ ] CI/CD ??
