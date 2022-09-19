@@ -102,19 +102,22 @@ class _AudioScreenState extends State<AudioScreen> with WidgetsBindingObserver {
               ),
             ),
           ),
-          Column(
-            children: [
-              OutlinedButton.icon(
-                  icon: const Icon(
-                    FontAwesomeIcons.phone,
-                    size: 20,
-                  ),
-                  label: Text("Llamar a cabina"),
-                  onPressed: () async {
-                    await _makePhoneCall("tel:+18095682222");
-                    await _player.pause();
-                  }),
-            ],
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedButton.icon(
+                    icon: const Icon(
+                      FontAwesomeIcons.phone,
+                      size: 20,
+                    ),
+                    label: Text("Llamar a cabina"),
+                    onPressed: () async {
+                      await _makePhoneCall("tel:+18095682222");
+                      await _player.pause();
+                    }),
+              ],
+            ),
           )
         ],
       ),
