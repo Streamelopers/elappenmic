@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../../routes.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+
+import '../../services/ads/ad_helper.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -11,6 +14,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+
+  BannerAd? _bannerAd;
 
   FlutterLocalNotificationsPlugin flutterNotificationPlugin =
       FlutterLocalNotificationsPlugin();
@@ -23,7 +28,19 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(Object context) {
     return Scaffold(
-      body: appScreens.elementAt(_currentIndex)['screen'] as Widget,
+      body: SafeArea(
+          child: Stack(children: [
+        appScreens.elementAt(_currentIndex)['screen'] as Widget,
+        if (_bannerAd != null)
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: _bannerAd!.size.width.toDouble(),
+              height: _bannerAd!.size.height.toDouble(),
+              child: AdWidget(ad: _bannerAd!),
+            ),
+          )
+      ])),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           items: appScreens
@@ -32,6 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
               .toList(),
           onTap: _selectScreen),
     );
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -46,6 +70,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
     flutterNotificationPlugin.initialize(initializationSettings);
     notificationScheduled();
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          print('Failed to load a banner ad: ${err.message}');
+          ad.dispose();
+        },
+      ),
+    ).load();
   }
 
   Future<void> notificationScheduled() async {

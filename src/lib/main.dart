@@ -8,9 +8,12 @@ import 'services/firestore.dart';
 import 'routes.dart';
 import 'services/models.dart';
 import 'firebase_options.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  MobileAds.instance.initialize();
   runApp(const App());
 }
 
