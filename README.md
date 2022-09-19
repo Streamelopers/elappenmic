@@ -2,6 +2,19 @@
 
 Aplicación hecha en Flutter para demostrar conceptos básicos.
 
+## Configuracion
+- Descargar los paquetes
+
+```
+flutter pub get
+```
+- Generar el splash screen
+
+```
+flutter pub run flutter_native_splash:create
+```
+
+
 ## Funcionalidades
 
 - [x] Escuchar estación de radio online
@@ -14,6 +27,7 @@ Aplicación hecha en Flutter para demostrar conceptos básicos.
 - [ ] Seguir tocando la radio aunque navegue a otras pantallas
 - [ ] Mostrar listado de futuras funciones
 - [x] Hacer mute de la estación cuando se haga una llamada
+- [ ] Mostrar splash screen
 - [ ] Mostar adunit en la parte inferior
 - [ ] Hacer tema dark
 - [ ] Agregar analytics??

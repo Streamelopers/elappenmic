@@ -22,14 +22,14 @@ var appScreens = {
     ),
     "title": "Videos"
   },
-  {
-    "screen": const ShowsScreen(),
-    "icon": const Icon(
-      FontAwesomeIcons.masksTheater,
-      size: 20,
-    ),
-    "title": "Shows"
-  },
+  // {
+//   "screen": const ShowsScreen(),
+  //   "icon": const Icon(
+  //     FontAwesomeIcons.masksTheater,
+  //     size: 20,
+  //   ),
+  //   "title": "Shows"
+  // },
   {
     "screen": const AboutScreen(),
     "icon": const Icon(
