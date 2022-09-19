@@ -1,8 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'models.g.dart';
 
+abstract class BaseModel {
+  Map<String, dynamic> toJson();
+}
+
 @JsonSerializable()
-class YoutubeVideo {
+class YoutubeVideo implements BaseModel {
   String title;
   String description;
   String key;
@@ -22,5 +26,7 @@ class YoutubeVideo {
 
   factory YoutubeVideo.fromJson(Map<String, dynamic> json) =>
       _$YoutubeVideoFromJson(json);
+
+  @override
   Map<String, dynamic> toJson() => _$YoutubeVideoToJson(this);
 }

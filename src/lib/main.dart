@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:src/components/home/home_screen.dart';
 import 'package:src/components/videos/videos_list_screen.dart';
+import 'package:src/providers/my_database.dart';
 import 'services/firestore.dart';
 import 'routes.dart';
 import 'services/models.dart';
@@ -12,7 +13,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   MobileAds.instance.initialize();
   runApp(const App());
 }
@@ -24,26 +25,8 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  final Future<FirebaseApp> _initialization =
-      Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: _initialization,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return FutureProvider(
-                create: (_) => FirestoreService().getYoutubeVideos(),
-                initialData: YoutubeVideo(),
-                child: const MaterialApp(
-                  home: HomeScreen(),
-                  //  theme: appTheme,
-                ));
-          }
-          return const Scaffold(
-              body: Directionality(
-                  textDirection: TextDirection.ltr, child: Text('loading')));
-        });
+    return const MaterialApp(home: HomeScreen());
   }
 }
