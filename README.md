@@ -27,8 +27,8 @@ flutter pub run flutter_native_splash:create
 - [ ] Seguir tocando la radio aunque navegue a otras pantallas
 - [ ] Mostrar listado de futuras funciones
 - [x] Hacer mute de la estación cuando se haga una llamada
-- [ ] Mostrar splash screen
-- [ ] Mostar adunit en la parte inferior
+- [x] Mostrar splash screen
+- [x] Mostar adunit en la parte inferior
 - [ ] Hacer tema dark
 - [ ] Agregar analytics??
 - [ ] Agregar crash reports??
