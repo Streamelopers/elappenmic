@@ -22,7 +22,43 @@ class _HomeScreenState extends State<HomeScreen> {
   void _selectScreen(int index) {
     setState(() {
       _currentIndex = index;
+      if (_isInterstitialAdLoaded) {
+        _interstitialAd.show();
+      }
     });
+  }
+
+  late InterstitialAd _interstitialAd;
+  bool _isInterstitialAdLoaded = false;
+  void _initAds() {
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: const AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          ad.dispose();
+        },
+      ),
+    ).load();
+
+    InterstitialAd.load(
+        adUnitId: AdHelper.interstitialAdUnitId,
+        request: AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(
+          onAdLoaded: onAdLoaded,
+          onAdFailedToLoad: (LoadAdError error) {},
+        ));
+  }
+
+  void onAdLoaded(InterstitialAd ad) {
+    _interstitialAd = ad;
+    _isInterstitialAdLoaded = true;
   }
 
   @override
@@ -70,22 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     flutterNotificationPlugin.initialize(initializationSettings);
     notificationScheduled();
-    BannerAd(
-      adUnitId: AdHelper.bannerAdUnitId,
-      request: AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          setState(() {
-            _bannerAd = ad as BannerAd;
-          });
-        },
-        onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
-          ad.dispose();
-        },
-      ),
-    ).load();
+
+    _initAds();
   }
 
   Future<void> notificationScheduled() async {

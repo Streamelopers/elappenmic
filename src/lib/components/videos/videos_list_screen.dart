@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:src/services/ads/ad_helper.dart';
 import 'package:src/services/firestore.dart';
 import 'package:src/services/models.dart';
 
@@ -6,7 +8,6 @@ import 'video_item.dart';
 
 class VideosListScreen extends StatelessWidget {
   const VideosListScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<YoutubeVideo>>(
