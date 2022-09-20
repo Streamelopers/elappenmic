@@ -11,13 +11,13 @@ class MyDatabase {
       return _db!;
     }
 
-    var databasePath = await getDatabasesPath();
     _db = openDatabase(
       join(await getDatabasesPath(), 'elappenmic.db'),
-      onCreate: (db, version) {
-        return db.execute(
-            'CREATE TABLE youtube_videos(id INTEGER PRIMARY KEY, key TEXT, title TEXT, description TEXT, published_at DATETIME, thumbnail TEXT, thumbnail_2x TEXT, thumbnail_3x TEXT); ' +
-                'CREATE TABLE settings(id INTEGER PRIMARY KEY, key TEXT, value TEXT);');
+      onCreate: (db, version) async {
+        await db.execute(
+            'CREATE TABLE youtube_videos(key TEXT PRIMARY KEY, title TEXT, description TEXT, published_at DATETIME, thumbnail TEXT, thumbnail_2x TEXT, thumbnail_3x TEXT);');
+        await db.execute(
+            'CREATE TABLE settings(id INTEGER PRIMARY KEY, key TEXT, value TEXT);');
       },
       version: 1,
     );

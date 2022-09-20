@@ -1,12 +1,10 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:src/services/ads/ad_helper.dart';
-import 'package:src/services/firestore.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:src/services/models.dart';
+import 'package:intl/intl.dart';
 
-import '../../firebase_options.dart';
 import '../../providers/my_database.dart';
+import '../../services/firestore.dart';
 import 'video_item.dart';
 
 class VideosListScreen extends StatelessWidget {
@@ -17,16 +15,32 @@ class VideosListScreen extends StatelessWidget {
 
     var db = await MyDatabase.connection();
 
-    //  var settings = await db.query("settings", where: "key='last_sync'");
-    //  var lastSyncDate = DateTime.parse(settings.last['value'].toString());
+    var settings = await db.query("settings");
+
+    print('settings');
+    print(settings);
+    // var lastSyncDate = DateTime.parse(settings.last['value'].toString());
 
     //if (lastSyncDate) {}
-    //var firestoreYoutubeVideos = await FirestoreService().getYoutubeVideos();
+    if (settings.length == 0) {
+      print("Descargando de firestore");
+      var firestoreYoutubeVideos = await FirestoreService().getYoutubeVideos();
 
-    // for (int i = 0; i < firestoreYoutubeVideos.length; ++i) {
-    //   var youtube_video = firestoreYoutubeVideos[i].toJson();
-    //   db.insert("youtube_videos", youtube_video);
-    // }
+      for (int i = 0; i < firestoreYoutubeVideos.length; ++i) {
+        var youtube_video = firestoreYoutubeVideos[i].toJson();
+        db.insert(
+          "youtube_videos",
+          youtube_video,
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+      var last_sync = DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now());
+      await db.insert("settings", {'key': 'last_sync', 'value': last_sync});
+    } else {
+      print("No vamos a ir a firestore a buscar nada");
+    }
+
+    print("Cargando desde la base de datos");
     videos =
         (await db.query("youtube_videos")).map(YoutubeVideo.fromJson).toList();
     return videos;
