@@ -16,14 +16,17 @@ class AboutScreen extends StatelessWidget {
             const Image(
                 image: AssetImage('assets/streamelopers.png'),
                 fit: BoxFit.fitWidth),
-            Row(children: const [
-              Expanded(
-                child: Text(
-                    overflow: TextOverflow.clip,
-                    textAlign: TextAlign.center,
-                    "Gracias por usar la aplicación. Esta es una aplicación de codigo abierto. Puedes ver el codigo en nuestro github y seguirnos en las redes sociales usando los botones aquí debajo."),
-              ),
-            ]),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(children: const [
+                Expanded(
+                  child: Text(
+                      overflow: TextOverflow.clip,
+                      textAlign: TextAlign.center,
+                      "Gracias por usar la aplicación. Esta es una aplicación de codigo abierto. Puedes ver el codigo en nuestro github y seguirnos en las redes sociales usando los botones aquí debajo."),
+                ),
+              ]),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -55,7 +58,7 @@ class AboutScreen extends StatelessWidget {
                 child: Text(
                     overflow: TextOverflow.clip,
                     textAlign: TextAlign.center,
-                    "ElAppEnMic es una aplicación hecha por fans. Sus creadores no están asociado de ninguna forma con el programa radiar El Open Mic ni con Alofoke Media Group"),
+                    "ElAppEnMic es una aplicación hecha por fans. Sus creadores no están asociados de ninguna manera con el programa radiar El Open Mic ni con Alofoke Media Group"),
               ),
             ])
           ],
