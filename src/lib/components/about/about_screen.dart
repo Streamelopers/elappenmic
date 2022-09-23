@@ -49,9 +49,7 @@ class AboutScreen extends StatelessWidget {
                     icon: const Icon(FontAwesomeIcons.instagram))
               ],
             ),
-            const Divider(height: 100),
-            const Divider(),
-            const Divider(),
+            const Divider(height: 150),
             Row(children: const [
               Expanded(
                 child: Text(

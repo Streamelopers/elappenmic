@@ -90,14 +90,22 @@ class _AudioScreenState extends State<AudioScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
+            flex: 2,
             child: Center(
               child: StreamBuilder<PlayerState>(
                 stream: _player.playerStateStream,
                 builder: (context, snapshot) {
                   final playerState = snapshot.data;
-                  return _playerButton(playerState);
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Escucha la emisora radial 99.3 FM en vivo."),
+                      _playerButton(playerState),
+                    ],
+                  );
                 },
               ),
             ),
@@ -106,16 +114,17 @@ class _AudioScreenState extends State<AudioScreen> with WidgetsBindingObserver {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const Text("Puedes llamar a la cabina y hablar con los hosts"),
                 OutlinedButton.icon(
                     icon: const Icon(
                       FontAwesomeIcons.phone,
                       size: 20,
                     ),
-                    label: Text("Llamar a cabina"),
+                    label: const Text("Llamar a cabina"),
                     onPressed: () async {
                       await _makePhoneCall("tel:+18095682222");
                       await _player.pause();
-                    }),
+                    })
               ],
             ),
           )

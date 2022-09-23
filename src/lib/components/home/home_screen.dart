@@ -81,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ])),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
+          selectedItemColor: Colors.white,
           items: appScreens
               .map((item) => BottomNavigationBarItem(
                   icon: item["icon"] as Icon, label: item["title"].toString()))
